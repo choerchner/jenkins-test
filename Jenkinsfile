@@ -1,9 +1,9 @@
 pipeline {
-    agent any
+    agent docker { image 'node:14-alpine' }
     stages {
         stage('Test') {
             steps {
-                sh 'echo "Fail!"; exit 1'
+                sh 'node --version'
             }
         }
     }
