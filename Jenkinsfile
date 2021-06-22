@@ -1,15 +1,12 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'node:14-alpine' }
+    }
     stages {
         stage('Test') {
             steps {
-                sh './gradlew check'
+                sh 'node --version'
             }
-        }
-    }
-    post {
-        always {
-            junit 'build/reports/**/*.xml'
         }
     }
 }
