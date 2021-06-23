@@ -1,10 +1,22 @@
 pipeline {
-    agent { docker }
+    agent any
     stages {
+        stage('Build') {
+            steps {
+                sh './gradlew build'
+            }
+        }
         stage('Test') {
             steps {
-                sh 'node --version'
+                sh './gradlew check'
             }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
+            junit 'build/reports/**/*.xml'
         }
     }
 }
